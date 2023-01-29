@@ -42,9 +42,7 @@ Next, run the PCB Editor (even though you need not have created a PCB for this p
 
 Enter the path of the netlist file you just exported. Give the path and name of the file where you would like the Verilog file generated, and click Generate Verilog.
 
-Complex schematics might take a minute to process. Be patient.
-
-Errors or warnings will appear in the Results box.
+Complex schematics might take a minute to process. Be patient. Errors, warnings, and messages will appear in the Results box when the Verilog generation is done.
 
 ## Understanding KiCadVerilog
 

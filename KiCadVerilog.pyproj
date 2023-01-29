@@ -30,7 +30,6 @@
     <Compile Include="kinparse.py" />
     <Compile Include="kvgui.py" />
     <Compile Include="NetlistObjects.py" />
-    <Compile Include="py_2_3.py" />
     <Compile Include="__init__.py" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />

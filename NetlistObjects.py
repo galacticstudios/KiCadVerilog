@@ -55,16 +55,16 @@ class Part:
                     # Split out any number at the end of the name.
                     # e.g. A0, A1, A2... will get split into A and the number
                     # We do this to identify buses
-                    pincopy.split = split = SortableReference(pincopy.name)
+                    split = SortableReference(pincopy.name)
                     # If the name has a number at the end and text at the beginning
                     if split.number != None and split.ref != '':
                         # Build a list of pins whose names start with the same letter(s) and have
                         # numbers at the end. I.e. buses
                         bus = self.buses.get(split.ref)
                         if bus == None:
-                            self.buses[split.ref] = [(int(pincopy.num), pincopy)]
+                            self.buses[split.ref] = [(int(pincopy.num), pincopy, split)]
                         else:
-                            bus.append((int(pincopy.num), pincopy))
+                            bus.append((int(pincopy.num), pincopy, split))
 
                 break
 

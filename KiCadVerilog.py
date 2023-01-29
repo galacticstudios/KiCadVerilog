@@ -272,7 +272,7 @@ def main(argv):
                     break
 
                 # Sort the pins by their bus index (e.g. A15, A14, A13, A12...)
-                args = sorted(bus_pins, key = lambda p: p[1].split.number, reverse = True)
+                args = sorted(bus_pins, key = lambda p: p[2].number, reverse = True)
                 # Build a list of the ports in the vector
                 arg_list = []
                 for arg in args:
