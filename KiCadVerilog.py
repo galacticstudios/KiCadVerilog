@@ -26,8 +26,12 @@ import sys
 
 from builtins import open
 
-from kinparse import parse_netlist
-from NetlistObjects import Netlist, SortableReference
+try:
+    from . import kinparse
+    from . import NetlistObjects
+except:
+    import kinparse
+    import NetlistObjects
 
 libparts = {}
 
@@ -159,7 +163,7 @@ def main(argv):
 
     try:
         input = open(input_file, 'r', encoding='latin_1')
-        nlst = parse_netlist(input)
+        nlst = kinparse.parse_netlist(input)
 
     except IOError:
         logging.error('Unable to open ' + input_file + ' for reading.')
@@ -177,7 +181,7 @@ def main(argv):
         top_level_module_name = os.path.splitext(os.path.basename(nlst.source.replace('\\\\', '/')))[0]
 
     # Build objects for the netlist
-    netlist = Netlist(nlst)
+    netlist = NetlistObjects.Netlist(nlst)
 
     # Get all the VerilogInclude files
     verilog_includes = netlist.verilog_includes()
@@ -228,7 +232,7 @@ def main(argv):
     # of which pins are ports
     modules_code = []
     part_refs = list(netlist.parts.keys())
-    part_refs.sort(key = lambda item : SortableReference(item))
+    part_refs.sort(key = lambda item : NetlistObjects.SortableReference(item))
     for part_ref in part_refs:
         part = netlist.parts[part_ref]
 
