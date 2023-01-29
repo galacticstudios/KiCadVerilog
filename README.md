@@ -203,6 +203,20 @@ Typically, the way you'll go about writing Verilog is this:
 
 ### Errors and Warnings
 
+**Error: Unable to open <Verilog file> for output.**: File error.
+
+**Error: Unable to open <netlist file> for reading.**: File error.
+
+**Error: Unable to parse <netlist file> as a KiCad 6+ netlist.**: Either the specified file is not a netlist, or there's a bug in the code. If you suspect the latter, please [open an issue](https://github.com/galacticstudios/KiCadVerilog/issues).
+
+**Warning: No relevant nets connected to <ref>.**: The specified component in your schematic is not wired up to anything.
+
+**Warning: Pin <n> on part <ref> is not connected to a net, and is not marked as 'no-connect'**: Self-explanatory.
+
+**Warning: Module <module name> has no Verilog code.**: You did not create a VerilogCode field for the specified component. If you do not require any code for it, and you want to get rid of the warning, add a VerilogCode field to the component and put a Verilog comment in it, e.g. `// No implementation`
+
+**Info: No module generated for <ref> because it has no relevant pins.**: "Relevant pins" includes signal pins, but excludes power pins. If a component has only power pins, KV will not generate a Verilog module for it.
+
 # About
 
 KiCadVerilog is released under the MIT license.

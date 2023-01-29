@@ -125,7 +125,7 @@ class KVUI(wx.Dialog):
         event.Skip()
 
     def on_help(self, event):  # wxGlade: KVUI.<event_handler>
-        webbrowser.open('https://github.com/galacticstudios/KiCadVerilog')
+        webbrowser.open('https://github.com/galacticstudios/KiCadVerilog/blob/main/README.md')
 
 # end of class KVUI
 
