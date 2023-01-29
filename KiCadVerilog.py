@@ -26,8 +26,8 @@ import sys
 
 from builtins import open
 
-from .kinparse import parse_netlist
-from .NetlistObjects import Netlist, SortableReference
+from kinparse import parse_netlist
+from NetlistObjects import Netlist, SortableReference
 
 libparts = {}
 
@@ -150,11 +150,12 @@ def main(argv):
 
     if output_file != None:
         try:
-            sys.stdout = open(output_file, 'w')
+            out = open(output_file, 'w')
         except:
             logging.error('Unable to open', output_file, 'for writing.')
             return logging.get_messages()
-
+    else:
+        out = sys.stdout
 
     try:
         input = open(input_file, 'r', encoding='latin_1')
@@ -164,8 +165,9 @@ def main(argv):
         logging.error('Unable to open ' + input_file + ' for reading.')
         return logging.get_messages()
 
-    except:
+    except Exception as e:
         logging.error('Unable to parse ' + input_file + ' as a KiCad 6+ netlist.')
+        logging.error(repr(e))
         return logging.get_messages()
 
     # Generate a name for the top level Verilog module
@@ -185,8 +187,8 @@ def main(argv):
                         
     # Generate `include directives for all the Verilog include files we found
     for include_file in verilog_includes:
-        print('`include "' + include_file + '"')
-    print('')
+        print('`include "' + include_file + '"', file = out)
+    print('', file = out)
 
     module_signature = 'module ' + top_level_module_name
 
@@ -213,14 +215,14 @@ def main(argv):
             else:
                 wire_definitions += '   wire ' + legal_verilog_name(net.name) + ';\n'
 
-    print(module_signature)
+    print(module_signature, file = out)
     if len(module_ports):
         module_ports.sort()
-        print('(\n   ' + ',\n   '.join(module_ports) + '\n);\n\n')
+        print('(\n   ' + ',\n   '.join(module_ports) + '\n);\n\n', file = out)
     else:
-        print('();\n\n')
-    print(wire_definitions)
-    print('')
+        print('();\n\n', file = out)
+    print(wire_definitions, file = out)
+    print('', file = out)
 
     # Generate modules for each of the parts. Also build a dictionary for each module,
     # of which pins are ports
@@ -306,22 +308,24 @@ def main(argv):
             modules_code.append(module_code)
 
             # Generate the invocation of the module
-            print(wrap('   ' + module_name + ' _' + legal_verilog_name(part.ref) + '(' + ', '.join(invocation_args) + ');\n'))
+            print(wrap('   ' + module_name + ' _' + legal_verilog_name(part.ref) + '(' + ', '.join(invocation_args) + ');\n'), file = out)
 
         else:
             logging.info('No module generated for ' + part.ref + ' because it has no relevant pins.')
 
     # Finish the main module
-    print('\nendmodule\n')
+    print('\nendmodule\n', file = out)
 
     # Output the modules' code
-    print('')
+    print('', file = out)
     for module_code in modules_code:
-        print(module_code)
+        print(module_code, file = out)
+
+    out.close()
 
     return logging.get_messages()
 
 
 if __name__ == '__main__':
-    from gui import launch
+    from kvgui import launch
     launch()

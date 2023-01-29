@@ -11,7 +11,7 @@ import wx
 
 # begin wxGlade: extracode
 import os.path
-from .KiCadVerilog import main
+from KiCadVerilog import main
 import webbrowser
 
 def launch():

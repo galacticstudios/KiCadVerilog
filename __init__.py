@@ -1,3 +1,3 @@
-from .kicadverilog_action import KiCadVerilogAction # Note the relative import!
+from .kicadverilog_action import KiCadVerilogAction
 
-KiCadVerilogAction().register() # Instantiate and register to Pcbnew
+KiCadVerilogAction().register() 

@@ -1,6 +1,5 @@
 import pcbnew
 import os
-from .kvgui import launch
 
 class KiCadVerilogAction(pcbnew.ActionPlugin):
     def defaults(self):
@@ -12,4 +11,5 @@ class KiCadVerilogAction(pcbnew.ActionPlugin):
 
     def Run(self):
         # The entry function of the plugin that is executed on user action
-        launch()
+        import kvgui
+        kvgui.launch()

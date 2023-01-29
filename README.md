@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This is a Python 3 application for generating Verilog code from a KiCad 6.0 (or later) schematic.
+This is a KiCad plugin for generating Verilog code from a KiCad 6.0 (or later) schematic.
 
 This is useful if you are designing a retro circuit board, e.g. a CPU made out of discrete TTL chips, and want to simulate it. You would design your circuit in KiCad's schematic editor, convert it to Verilog, and use any one of the several free [Verilog simulators]([List of HDL simulators - Wikipedia](https://en.wikipedia.org/wiki/List_of_HDL_simulators)) available.
 
@@ -31,6 +31,22 @@ Next, install the plugin itself. From Pcbnew, select `Tools->External Plugins->O
 Finally, in Pcbnew, select Tools->External Plugins->Refresh Plugins. The KiCadVerilog icon should appear on Pcbnew's toolbar.
 
 ## Running KiCadVerilog
+
+The following section, Understanding KiCadVerilog, explains exactly what KV does, and what you need to do to create a complete Verilog program. But let's do the easy stuff first: running KiCadVerilog.
+
+First, generate a netlist for your schematic. To do this, run the Schematic Editor, select File->Export->Netlist..., click the Export Netlist button, and choose a file name.
+
+Next, run the PCB Editor (even though you need not have created a PCB for this project yet). Click the KiCadVerilog button on the toolbar (![](C:\Users\Bob\AppData\Roaming\marktext\images\2023-01-28-13-01-22-image.png)) or select Tools->External Plugins->KiCadVerilog. You'll see the following dialog box:
+
+![](C:\Users\Bob\AppData\Roaming\marktext\images\2023-01-28-13-03-31-image.png)
+
+Enter the path of the netlist file you just exported. Give the path and name of the file where you would like the Verilog file generated, and click Generate Verilog.
+
+Complex schematics might take a minute to process. Be patient.
+
+Errors or warnings will appear in the Results box.
+
+## Understanding KiCadVerilog
 
 ## The Generated Verilog Code
 
@@ -184,6 +200,8 @@ Typically, the way you'll go about writing Verilog is this:
 - Go back to KiCad and bring up the symbol properties for each component. Create a VerilogInclude field and enter the name of the include file that has the implementation for that component. Create a VerilogCode field, and copy and paste the instantiation you wrote.
 
 - Re-export the netlist and run KiCadVerilog on it. You should now have a file ready for Verilog simulation.
+
+### Errors and Warnings
 
 # About
 

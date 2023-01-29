@@ -26,15 +26,7 @@ Parsers for netlist files of various formats (only KiCad, at present).
 """
 
 
-from __future__ import unicode_literals
-from __future__ import print_function
-from __future__ import division
-from __future__ import absolute_import
 from builtins import open
-from future import standard_library
-standard_library.install_aliases()
-
-from py_2_3 import *
 
 from pyparsing import *
 
@@ -172,7 +164,7 @@ def parse_netlist(src, tool='kicad'):
         except Exception:
             text = src
 
-    if not isinstance(text, basestring):
+    if not isinstance(text, type('')):
         raise Exception("What is this shit you're handing me? [{}]\n".format(src))
 
     try:
