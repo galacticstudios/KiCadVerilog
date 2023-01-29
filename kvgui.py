@@ -11,7 +11,7 @@ import wx
 
 # begin wxGlade: extracode
 import os.path
-from KiCadVerilog import main
+from . import KiCadVerilog
 import webbrowser
 
 def launch():
@@ -116,7 +116,7 @@ class KVUI(wx.Dialog):
         if result == wx.YES:
             with wx.BusyCursor():
                 self.results_text.SetValue('')
-                log = main(['-i', self.netlist_file_field.GetValue(), '-o', self.verilog_file_field.GetValue()])
+                log = KiCadVerilog.main(['-i', self.netlist_file_field.GetValue(), '-o', self.verilog_file_field.GetValue()])
                 for message in log:
                     self.results_text.write(message + '\n')
                 self.button_CANCEL.SetLabel('Close')
