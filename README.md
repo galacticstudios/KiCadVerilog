@@ -46,6 +46,26 @@ Complex schematics might take a minute to process. Be patient. Errors, warnings,
 
 ## Understanding KiCadVerilog
 
+## Overview
+
+There are more details in the following sections. But the general approach to converting your schematic to Verilog is this:
+
+1. Write (or find on the web) a Verilog module implementing the behavior of each component in your schematic. So, for example, if you have a 7402 quad NOR gate in your circuit, you need to write or find Verilog code that implements a quad NOR gate. Put these modules in one or more include files.
+
+2. Export a netlist of your schematic from KiCad's Schematic Editor, run KiCadVerilog on it, and open the generated Verilog in a text editor.
+
+3. For each module in the generated code, write an instantiation of the module that implements that component's behavior. Usually, it will just be a single line of code that takes the arguments passed into the module, and re-arranges them to call the Verilog modules you wrote in step 1.
+   
+   These one line instantiations you're writing will not stay in the generated Verilog file. You're only writing them here because it's a convenient text editor, where you can see all the arguments to the module. But in step 4, you're going to copy the instantiations you write here, and paste them into fields in the KiCad schematic.
+   
+   Notice that if you use the same component multiple times, e.g. if you have multiple 7402 quad NOR gates in your design, the instantiations of them will all be the same. So you only have to write the instantiation once (but in the next step, you will copy that instantiation into a field for each 7402 in your schematic).
+
+4. Go back to KiCad and bring up the symbol properties for each component. Create a VerilogInclude field and enter the name of the include file that has the implementation for that component. Create a VerilogCode field, and copy and paste the instantiation you wrote for that component.
+   
+   Note that if you have multiple identical components, like multipe 7402s, you don't really need to create VerilogInclude fields for each of them. If just one of them includes the Verilog file you need, the generated Verilog code will have the necessary `include` statement.
+
+5. Re-export the netlist and run KiCadVerilog on it. You should now have a file ready for Verilog simulation. 
+
 ## The Generated Verilog Code
 
 A KiCad netlist contains nets and parts (i.e. the symbols or components in your schematic). The parts have pins (i.e. the pins on an integrated circuit, or the leads of components like resistors and capacitors). The netlist also contains information about which nets are connected to which pins.
@@ -184,20 +204,6 @@ So instead, KV looks for VerilogModulePort fields in the symbols. The field cont
 Multiple symbols may have VerilogModulePort fields, and the port list will contain all the wires from all the fields. There is no way to control the order those ports are defined.
 
 In KiCad, each pin has a type, e.g. input, output, passive, unspecified, etc. KV uses this when generating the port type. KiCad input, output, and bidirectional pin types result in Verilog input, output, and inout port types, respectively. All other KiCad pin types result in a Verilog inout port type.
-
-### Putting It All Together
-
-Typically, the way you'll go about writing Verilog is this:
-
-- Write (or find on the web) a Verilog module implementing the behavior of each component in your schematic. Put these modules in one or more include files.
-
-- Export a netlist of your schematic from KiCad, run KiCadVerilog on it, and open the generated Verilog in a text editor.
-
-- For each module in the generated code, write a single line instantiation of the module that implements that component's behavior. Notice that if you use the same component multiple times, e.g. you have multiple 7402 quad NOR gates in your design, the instantiations of them will all be the same, so you can just copy and paste.
-
-- Go back to KiCad and bring up the symbol properties for each component. Create a VerilogInclude field and enter the name of the include file that has the implementation for that component. Create a VerilogCode field, and copy and paste the instantiation you wrote.
-
-- Re-export the netlist and run KiCadVerilog on it. You should now have a file ready for Verilog simulation.
 
 ### Errors and Warnings
 
