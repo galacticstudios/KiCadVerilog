@@ -1,0 +1,32 @@
+{
+    "$schema": "https://go.kicad.org/pcm/schemas/v1",
+    "name": "KiCadVerilog",
+    "description": "A plugin for converting KiCad schematics to Verilog.",
+    "description_full": "A plugin for converting KiCad schematics to Verilog.",
+    "identifier": "com.github.galacticstudios.KiCadVerilog",
+    "type": "plugin",
+    "author": {
+        "name": "Bob Alexander",
+        "contact": {
+            "web": "https://GalacticStudios.org"
+        }
+    },
+    "maintainer": {
+        "name": "Bob Alexander",
+        "contact": {
+            "web": "https://GalacticStudios.org"
+        }
+    },
+    "license": "Expat",
+    "resources": {
+        "homepage": "https://github.com/galacticstudios/KiCadVerilog"
+    },
+    "versions": [
+        {
+            "version": "1.0",
+            "status": "stable",
+            "kicad_version": "6.0",
+            "download_url": "https://github.com/galacticstudios/KiCadVerilog/archive/refs/heads/main.zip",
+        }
+    ]
+}
