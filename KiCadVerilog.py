@@ -254,7 +254,7 @@ def main(argv):
             # If this isn't a power pin
             if pin.type.find('power') == -1:
                 # Make the pin an argument to the module
-                ports.append('   ' + verilog_pin_type(pin.type) + ' ' + legal_verilog_name(pin.unique_name))
+                ports.append('   ' + verilog_pin_type(pin.type) + ' ' + legal_verilog_name(part.unique_names[pin.num]))
                 net = pin.get('net')
                 if net != None:
                     invocation_args.append(legal_verilog_name(pin['net'].name))
@@ -280,7 +280,7 @@ def main(argv):
                 # Build a list of the ports in the vector
                 arg_list = []
                 for arg in args:
-                    arg_list.append(legal_verilog_name(arg[1].unique_name))
+                    arg_list.append(legal_verilog_name(part.unique_names[arg[1].num]))
                 # Define a macro that collects bus pins into a vector. Undefine it later
                 vbus_name = legal_verilog_name(bus_name)
                 if first_macro:

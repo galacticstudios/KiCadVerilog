@@ -33,6 +33,7 @@ class Part:
     def __init__(self, part, libparts):
         self._part = part
         self.pins = {}
+        self.unique_names = {}
         self.name = part.name
         self.ref = part.ref
 
@@ -71,9 +72,9 @@ class Part:
         # Go through the pins and give them unique names
         for pin in self.pins.values():
             if pin.name in duplicates:
-                pin.unique_name = pin.name + '_' + pin.num
+                self.unique_names[pin.num] = pin.name + '_' + pin.num
             else:
-                pin.unique_name = pin.name
+                self.unique_names[pin.num] = pin.name
 
     def add_net(self, pin_number, net):
         pin = self.pins.get(pin_number)
