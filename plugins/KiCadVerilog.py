@@ -155,13 +155,15 @@ def main(argv):
         out = sys.stdout
         
     try:
+        import pyparsing
+    except:
+        logging.error('Unable to import pyparsing. Click the Help button and see the Installing KiCadVerilog section')
+        return logging.get_messages()
+    
+    try:
         from . import kinparse
     except:
-        try:
-            import kinparse
-        except Exception as e:
-            logging.error(repr(e))
-            return logging.get_messages()
+        import kinparse
 
     try:
         from . import NetlistObjects
