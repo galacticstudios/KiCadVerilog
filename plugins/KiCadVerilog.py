@@ -26,16 +26,6 @@ import sys
 
 from builtins import open
 
-try:
-    from . import kinparse
-except:
-    import kinparse
-
-try:
-    from . import NetlistObjects
-except:
-    import NetlistObjects
-
 libparts = {}
 
 class Log:
@@ -163,6 +153,21 @@ def main(argv):
             return logging.get_messages()
     else:
         out = sys.stdout
+        
+    try:
+        from . import kinparse
+    except:
+        try:
+            import kinparse
+        except Exception as e:
+            logging.error(repr(e))
+            return logging.get_messages()
+
+    try:
+        from . import NetlistObjects
+    except:
+        import NetlistObjects
+
 
     try:
         input = open(input_file, 'r', encoding='latin_1')

@@ -28,7 +28,10 @@ Parsers for netlist files of various formats (only KiCad, at present).
 
 from builtins import open
 
-from pyparsing import *
+try:
+    from pyparsing import *
+except:
+    raise Exception('Unable to import pyparsing. Click on Help and read the section on Installing KiCadVerilog.')
 
 
 THIS_MODULE = locals()
