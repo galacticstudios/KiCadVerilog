@@ -132,7 +132,7 @@ KV recognizes three fields: VerilogInclude, VerilogCode, and VerilogModulePort. 
 
 As an example:
 
-![](C:\Users\Bob\AppData\Roaming\marktext\images\2023-01-17-19-03-15-image.png)
+![](https://github.com/galacticstudios/KiCadVerilog/blob/main/doc/properties.png?raw=true)
 
 Note that while this example has all three Verilog fields for one symbol, that's certainly not necessary. A symbol can have all, some, or none of the Verilog fields. Typically, however, if a symbol has a VerilogCode field, it should have a VerilogInclude field, since the code is usually instantiating a module that's in an include file.
 
