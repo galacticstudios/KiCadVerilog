@@ -28,9 +28,12 @@ from builtins import open
 
 try:
     from . import kinparse
-    from . import NetlistObjects
 except:
     import kinparse
+
+try:
+    from . import NetlistObjects
+except:
     import NetlistObjects
 
 libparts = {}
