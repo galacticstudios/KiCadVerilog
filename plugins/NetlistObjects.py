@@ -63,9 +63,9 @@ class Part:
                         # numbers at the end. I.e. buses
                         bus = self.buses.get(split.ref)
                         if bus == None:
-                            self.buses[split.ref] = [(int(pincopy.num), pincopy, split)]
+                            self.buses[split.ref] = [(str(pincopy.num), pincopy, split)]
                         else:
-                            bus.append((int(pincopy.num), pincopy, split))
+                            bus.append((str(pincopy.num), pincopy, split))
 
                 break
 
@@ -77,7 +77,7 @@ class Part:
                 self.unique_names[pin.num] = pin.name
 
     def add_net(self, pin_number, net):
-        pin = self.pins.get(pin_number)
+        pin = self.pins.get(str(pin_number))
         if (pin != None):
             pin['net'] = net
 
