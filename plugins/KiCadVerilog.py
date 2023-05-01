@@ -219,8 +219,10 @@ def main(argv):
         # Else (this net is not a module port) generate a wire for it
         else:
             if net.is_power_net():
+                wire_definitions += '   wire ' + legal_verilog_name(net.name) + ';\n'
                 wire_definitions += '   assign ' + legal_verilog_name(net.name) + ' = 1;\n'
             elif net.is_ground_net():
+                wire_definitions += '   wire ' + legal_verilog_name(net.name) + ';\n'
                 wire_definitions += '   assign ' + legal_verilog_name(net.name) + ' = 0;\n'
             elif net.pulled == 0:
                 wire_definitions += '   tri0 ' + legal_verilog_name(net.name) + ';\n'
