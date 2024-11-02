@@ -96,7 +96,7 @@ def _parse_netlist_kicad(text):
     sheetpath = Group(_paren_clause('sheetpath', name & tstamp))('sheetpath')
     comp = Group(_paren_clause('comp', ref & value & Optional(datasheet) & 
                     Optional(fields) & Optional(libsource) & Optional(footprint) & 
-                    Optional(sheetpath) & Optional(tstamp) & Optional(properties)))
+                    Optional(sheetpath) & Optional(tstamp) & Optional(properties) & Optional(description)))
     components = _paren_clause('components', ZeroOrMore(comp)('parts'))
 
     # Part library section.
